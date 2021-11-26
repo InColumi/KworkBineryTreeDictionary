@@ -1,0 +1,7 @@
+home дом
+right право
+left лево
+apple €блоко
+mause мышь
+jump прыгать
+do делать
