@@ -1,7 +1,7 @@
 home дом
 right право
 left лево
-apple €блоко
+apple яблоко
 mause мышь
 jump прыгать
 do делать

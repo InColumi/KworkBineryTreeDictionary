@@ -30,6 +30,22 @@ public:
 		_root = NULL;
 	}
 
+	~BineryTree()
+	{
+		freemem(_root);
+	}
+
+	//Освобождение памяти дерева
+	void freemem(TreeNode* tree)
+	{
+		if(tree != NULL)    // если дерево не пустое
+		{
+			freemem(tree->left);   // рекурсивно удаляем левую ветку
+			freemem(tree->right);  // рекурсивно удаляем правую ветку
+			delete tree;           // удаляем корень
+		}
+	}
+
 	string find(string key)
 	{
 		TreeNode* n = find(_root, key);
@@ -46,17 +62,40 @@ public:
 		remove(_root, key);
 	}
 
-	/*void loadToFile(string fileName)
+	void loadToFile(string fileName)
 	{
-		traverse(n->left);
-		printf("%d", n->value);
-		traverse(n->right);
-
-		ofstream inFile(fileName, ios::app);
-		inFile << engWord << '\n';
-		inFile << rusWord << '\n';
+		TreeNode* next = _root;
+		ofstream inFile(fileName);
+		addToFile(_root, inFile);
 		inFile.close();
-	}*/
+	}
+
+	void AddToFile(string fileName, string key, string value)
+	{
+		ofstream inFile(fileName, ios::app);
+		inFile << key << '\t' << value << '\n';
+		inFile.close();
+		cout << "Ключ: " << key << " Значение: " << value << " --> Успешно добавлены в файл " << fileName;
+	}
+
+	void loadFromFile(string fileName)
+	{
+		ifstream of(fileName);
+		if(of.is_open() == false)
+		{
+			cout << "File not found!\n";
+		}
+		string key;
+		string value;
+		while(!of.eof())
+		{
+			of >> key;
+			of >> value;
+			if(key.size() > 0)
+				insert(key, value);
+		}
+		of.close();
+	}
 
 	void Show()
 	{
@@ -70,8 +109,17 @@ private:
 		if(n == NULL)
 			return;
 		Show(n->left);
-		cout << n->key << '\t' <<  n->value << '\n';
+		cout << n->key << '\t' << n->value << '\n';
 		Show(n->right);
+	}
+
+	void addToFile(TreeNode* n, ofstream& inFile)
+	{
+		if(n == NULL)
+			return;
+		addToFile(n->left, inFile);
+		inFile << n->key << '\t' << n->value << '\n';
+		addToFile(n->right, inFile);
 	}
 
 	TreeNode* find(TreeNode* n, string key)
@@ -276,8 +324,9 @@ int main()
 	}*/
 
 	BineryTree a;
-	a.insert("home", "дом");
-	a.insert("hi", "привет");
+	a.loadFromFile("data.txt");
 	a.Show();
+	a.loadToFile("data sorted.txt");
+
 	return 0;
 }

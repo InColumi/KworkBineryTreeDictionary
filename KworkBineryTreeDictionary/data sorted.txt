@@ -1,0 +1,7 @@
+apple	яблоко
+do	делать
+home	дом
+jump	прыгать
+left	лево
+mause	мышь
+right	право
