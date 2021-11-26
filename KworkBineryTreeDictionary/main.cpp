@@ -5,6 +5,6 @@ using namespace std;
 int main()
 {
 	setlocale(LC_ALL, "rus");
-	// проверка кодировки
+	// РїСЂРѕРІРµСЂРєР° РєРѕРґРёСЂРѕРІРєРё
 	return 0;
 }
