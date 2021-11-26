@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <iostream>
 #include <fstream>
 #include <cstringt.h>
@@ -270,8 +270,8 @@ int main()
 		cout << "4 - найти слово\n";
 		cout << "5 - удалить слово\n";
 		cout << "6 - печать словаря\n";
-		cout << "7 - выход из программы\n";
-		cout << "8 - добавить слово в файл\n";
+		cout << "7 - добавить слово в файл\n";
+		cout << "8 - выход из программы\n";
 		cout << "Введите номер команды: ";
 		cin >> numberCommand;
 		switch(numberCommand)
