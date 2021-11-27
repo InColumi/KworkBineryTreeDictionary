@@ -1,5 +1,5 @@
 ﻿#include <iostream>
-#include <iostream>
+#include <string>
 #include <fstream>
 #include <cstringt.h>
 
@@ -133,7 +133,6 @@ public:
 		ofstream inFile(fileName, ios::app); // открываем файл если есть, иначе создаем. С ключём добавления в файл.
 		inFile << key << '\t' << value << '\n';
 		inFile.close(); // закрываем файл
-		cout << "Ключ: " << key << " Значение: " << value << " --> Успешно добавлены в файл " << fileName;
 	}
 
 	/// <summary>
@@ -146,6 +145,7 @@ public:
 		if(of.is_open() == false) // если файла нет
 		{
 			cout << "File not found!\n";
+			return;
 		}
 		string key;
 		string value;
@@ -253,7 +253,8 @@ private:
 int main()
 {
 	setlocale(LC_ALL, "rus");
-
+	SetConsoleCP(1251);// установка кодовой страницы win-cp 1251 в поток ввода
+	SetConsoleOutputCP(1251); // установка кодовой страницы win-cp 1251 в поток вывода
 	BineryTree tree;
 	bool isExit = false;
 	int numberCommand;
@@ -266,62 +267,70 @@ int main()
 		cout << "Главное меню:\n";
 		cout << "1 - загрузка словаря из файла\n";
 		cout << "2 - запись словаря в файл\n";
-		cout << "3 - добавить слово\n";
+		cout << "3 - добавить слово в программу\n";
 		cout << "4 - найти слово\n";
 		cout << "5 - удалить слово\n";
 		cout << "6 - печать словаря\n";
 		cout << "7 - добавить слово в файл\n";
 		cout << "8 - выход из программы\n";
 		cout << "Введите номер команды: ";
-		cin >> numberCommand;
-		switch(numberCommand)
+		cin >> userInput;
+		try
 		{
-			case 1:
-				cout << "Введите название файла с расширением (пример name.txt)\n";
-				cin >> userInput;
-				tree.loadFromFile(userInput);
-				cout << "Словарь загружен в програму !\n";
-				break;
-			case 2:
-				cout << "Введите название файла с расширением (пример name.txt)\n";
-				cin >> userInput;
-				tree.loadToFile(userInput);
-				cout << "Словарь загружен в " << userInput << "\n";
-				break;
-			case 3:
-				cout << "Введите название файла с расширением (пример name.txt)\n";
-				cin >> userInput;
-				tree.loadToFile(userInput);
-				cout << "Словарь загружен в " << userInput << "\n";
-				break;
-			case 4:
-				cout << "Введите слово: ";
-				cin >> userInput;
-				cout << tree.find(userInput) << "\n";
-				break;
-			case 5: 
-				cout << "Введите слово: ";
-				cin >> userInput;
-				tree.remove(userInput);
-				break;
-			case 6:
-				tree.Show();
-				break;
-			case 7:
-				cout << "Введите название файла с расширением (пример name.txt)\n";
-				cin >> userInput;
-				cout << "Введите слово(english): ";
-				cin >> wordEng;
-				cout << "Введите слово(english): ";
-				cin >> wordRus;
-				tree.AddToFile(userInput, wordEng, wordRus);
-				break;
-			case 8:
-				isExit = true;
-				break;
-			default:
-				cout << "Неверная команда!\n";
-				break;
+			numberCommand = stoi(userInput);
+			switch(numberCommand)
+			{
+				case 1:
+					cout << "Введите название файла с расширением (пример data.txt)\n";
+					cin >> userInput;
+					tree.loadFromFile(userInput);
+					break;
+				case 2:
+					cout << "Введите название файла с расширением (пример data.txt)\n";
+					cin >> userInput;
+					tree.loadToFile(userInput);
+					break;
+				case 3:
+					cout << "Введите слово(english): ";
+					cin >> wordEng;
+					cout << "Введите слово(russian): ";
+					cin >> wordRus;
+					tree.insert(wordEng, wordRus);
+					break;
+				case 4:
+					cout << "Введите слово: ";
+					cin >> userInput;
+					cout << tree.find(userInput) << "\n";
+					break;
+				case 5:
+					cout << "Введите слово: ";
+					cin >> userInput;
+					tree.remove(userInput);
+					break;
+				case 6:
+					tree.Show();
+					break;
+				case 7:
+					cout << "Введите название файла с расширением (пример data.txt)\n";
+					cin >> userInput;
+					cout << "Введите слово(english): ";
+					cin >> wordEng;
+					cout << "Введите слово(russian): ";
+					cin >> wordRus;
+					tree.AddToFile(userInput, wordEng, wordRus);
+					break;
+				case 8:
+					isExit = true;
+					break;
+				default:
+					cout << "Неверная команда!\n";
+					break;
+			}
+			tree.Show();
+		}
+		catch(const std::exception& err)
+		{
+			cout << err.what() << endl;
 		}
 	}
 	cout << "Программа закончила свою работу!\n";
