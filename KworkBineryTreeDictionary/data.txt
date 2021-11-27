@@ -1,7 +1,7 @@
-home дом
-right право
-left лево
-apple Яблоко
-mause мышь
-jump прыгать
-do делать
+п»їhome РґРѕРј
+right РїСЂР°РІРѕ
+left Р»РµРІРѕ
+apple РЇР±Р»РѕРєРѕ
+mause РјС‹С€СЊ
+jump РїСЂС‹РіР°С‚СЊ
+do РґРµР»Р°С‚СЊ
